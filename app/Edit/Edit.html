@@ -1,0 +1,105 @@
+﻿    
+    <form name="contactForm">
+        <div class="panel panel-default center-block" style="width:600px; height:600px;">
+
+            <div class="panel-heading">
+                <h3>{{title}}</h3>
+            </div>
+            <div class="panel-body">
+                <strong class="has-error danger">{{ error }}</strong>
+                <div class="form-group" 
+                     ng-class="{ 'has-error': (contactForm.firstname.$touched || contactForm.firstname.$dirty) && !contactForm.firstname.$valid }">
+                    <label for="firstname">
+                        First Name:
+                    </label>
+                    <input type="text" class="form-control" placeholder="First Name(required)" id="firstname" ng-model="contact.FirstName" name="firstname" ng-required="true" minlength="3"/>
+                    <span class="help-block" ng-if="(contactForm.firstname.$touched || contactForm.firstname.$dirty) && contactForm.firstname.$error">
+                        <span ng-if="contactForm.firstname.$error.required">
+                        Please enter your first name.
+                        </span>
+                        <span ng-if="contactForm.firstname.$error.minlength">
+                            The first name must be longer that 3 charcters.
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group" 
+                     ng-class="{ 'has-error': contactForm.lastname.$touched && !contactForm.lastname.$valid }">
+                    <label for="lastname">
+                        Last Name:
+                    </label>
+                    <input type="text" class="form-control" placeholder="Last Name(required)" id="lastname" name="lastname" ng-model="contact.LastName" ng-required="true"/>
+                    
+                    <span class="help-block" ng-if="contactForm.lastname.$touched  && !contactForm.lastname.$valid">
+                        <span ng-if="contactForm.lastname.$error.required">
+                            Please enter your last name.
+                        </span>
+                    </span>
+                 </div>
+                <div class="form-group" 
+                     ng-class="{ 'has-error': (contactForm.email.$touched || contactForm.email.$dirty) && !contactForm.email.$valid }">
+                    <label for="Email">
+                        Email:
+                    </label>
+                    <input type="email" class="form-control" placeholder="Email(required)" id="email" 
+                          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"
+                           name="email" ng-model="contact.Email" ng-required="true" />
+                    <span class="help-block" ng-if="(contactForm.email.$touched || contactForm.email.$dirty) && contactForm.email.$error">
+                        <span ng-if="contactForm.email.$error.required">
+                            Please enter your email id.
+                        </span>
+                        <span ng-if="contactForm.email.$error.pattern">
+                            Please enter a valid email id.
+                        </span>
+                    </span>
+                </div>
+
+                <div class="form-group"
+              ng-class="{ 'has-error': (contactForm.phonenumber.$touched || contactForm.phonenumber.$dirty) && !contactForm.phonenumber.$valid }">
+                    <label for="Phone Number">
+                        Phone Number:
+                    </label>
+                    <input type="number" class="form-control" placeholder="Phone Number" id="phonenumber" 
+                           name="phonenumber" string-to-number ng-minlength="10" ng-maxlength="10" ng-required="true" ng-model="contact.PhoneNumber" />
+                    <span class="help-block" ng-if="(contactForm.phonenumber.$touched || contactForm.phonenumber.$dirty) && contactForm.phonenumber.$error">
+                        <span ng-if="contactForm.phonenumber.$error.required">
+                            Please enter your phone number.
+                        </span>
+                        <span ng-if="contactForm.phonenumber.$error.minlength">
+                           Phone number should be 10 digits.
+                        </span>
+                        <span ng-if="contactForm.phonenumber.$error.maxlength">
+                            Phone number should not be more than 10 digits.
+                        </span>
+                    </span>
+                </div>
+
+
+                <div class="form-group form-inline" 
+                      ng-class="{ 'has-error': contactForm.options.$touched && !contactForm.options.$valid }">
+                    <label for="Status">
+                        Status:
+                    </label>
+                    <div class="radio">
+                        <input type="radio" name="options" id="status" ng-model="contact.status" ng-value="0" ng-required="true"><label for="status">Active</label>
+                        <input type="radio" name="options" id="status1" ng-model="contact.status" ng-value="1" ng-required="true"><label for="status1">In Active</label>
+                    </div>
+                    <span class="help-block" ng-if="contactForm.options.$touched  && !contactForm.options.$valid">
+                        <span ng-if="contactForm.options.$error.required">
+                            Please select 
+                        </span>
+                    </span>
+                </div>
+                
+                <br />
+                    <a class="btn btn-info" ui-sref="contactsList">Back to List</a>
+                    <button type="submit" class="btn btn-primary" ng-if="activate" ng-disabled="contactForm.$invalid" ng-click="insertContact(contact)">
+                        Add Contact
+                    </button>
+                    <button type="submit" class="btn btn-primary" ng-if="!activate" ng-disabled="contactForm.$invalid" ng-click="updateContact(contact)">
+                        Update
+                </button>
+                </div>
+        </div>
+</form>
+
+
